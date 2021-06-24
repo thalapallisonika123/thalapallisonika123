@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class Main{
+public static void main(String args[])
+{
+Scanner scan = new Scanner(System.in);
+System.out.print("enter the CHAR");
+char c = scan.next().charAt(0);
+findvc(c);
+}
+public static void findvc(char c)
+{
+if(c== 'a'||c=='e'||c=='i'||c=='o'||c=='u')
+System.out.println(c+" is vowel");
+else
+System.out.println(c+" is consonant");
+}
+}
