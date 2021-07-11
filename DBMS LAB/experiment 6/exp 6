@@ -1,0 +1,43 @@
+DROP DATABASE IF EXISTS 19WH1A12B2;
+CREATE SCHEMA 19WH1A12B2;
+USE 19WH1A12B2;
+CREATE TABLE Busb(bus_no VARCHAR(20),Sourc VARCHAR(20),destination VARCHAR(20),bcolour VARCHAR(20));
+INSERT INTO Busb VALUES('TS123','hyderabad','banglore','blue');
+INSERT INTO Busb VALUES('TS124','hyderabad','vizag','red');
+INSERT INTO Busb VALUES('TS125','banglore','rajahmandry','blue');
+
+DELETE FROM Busb B WHERE B.Sourc='hyderabad';
+UPDATE Busb set bus_no='TS126' WHERE destination = 'banglore';
+
+CREATE TABLE Passenger(p_name VARCHAR(20),p_id INT,gender VARCHAR(20),age INT,p_destination VARCHAR(20));
+INSERT INTO Passenger VALUES('SON',1234,'male',28,'hyderabad');
+INSERT INTO Passenger VALUES('Sahith',1235,'male',50,'tirupati');
+INSERT INTO Passenger VALUES('Lahari',1238,'female',20,'hyderabad');
+INSERT INTO Passenger VALUES('pinky',1265,'female',48,'varanasi');
+
+ALTER TABLE Passenger ADD COLUMN seats INT;
+CREATE TABLE Ticket(T_id INT, T_cost INT, destination VARCHAR(20), seatno VARCHAR(20), P_id INT);
+INSERT INTO Ticket VALUES(1211, 290, 'Hyderabad', 'L67', 1276);
+INSERT INTO Ticket VALUES(1211, 200, 'Vizag', 'L42', 1291);
+INSERT INTO Ticket VALUES(1211, 700, 'Hyderabad', 'L52', 1290);
+INSERT INTO Ticket VALUES(1242, 240, 'Hyderabad', 'L53', 1243);
+INSERT INTO Ticket VALUES(1242, 570, 'Hyderabad', 'R19', 1235);
+
+DELETE FROM Ticket T WHERE T_id = 1212;
+
+ALTER TABLE Ticket ADD COLUMN seats INT;
+
+UPDATE Ticket T SET T.T_cost = T_cost + 10;
+
+SELECT DISTINCT P.P_id FROM Passenger P;
+SELECT P.P_name FROM Passenger P WHERE P.gender = "male";
+SELECT T.T_id, P.P_name FROM Passenger P, Ticket T WHERE T.P_id = P.P_id;
+SELECT T.T_id FROM Passenger P, Ticket T WHERE T.T_id = P.P_id and P.P_name LIKE "r%h";
+SELECT P.P_name FROM Passenger P WHERE P.age >= 30 AND P.age <= 45;
+SELECT P.P_name FROM Passenger P, Ticket T WHERE P.P_name LIKE "A%";
+SELECT P.P_name FROM Passenger P ORDER BY P.P_name ASC;
+SELECT P.P_id FROM Passenger P  WHERE P.P_id <>ALL(SELECT T.P_id FROM Ticket T);                       
+
+SELECT P.P_id FROM Passenger P  WHERE P.P_id = ANY(SELECT T.P_id FROM Ticket T);
+
+SELECT P.P_id FROM Passenger P  WHERE P.P_id  IN (SELECT T.P_id FROM Ticket T);
